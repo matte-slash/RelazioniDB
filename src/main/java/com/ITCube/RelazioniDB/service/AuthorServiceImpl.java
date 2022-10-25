@@ -57,6 +57,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     }
 
+    @Transactional
     public Author update(long id,Author a) throws AuthorNotFoundException {
 
         Author result=findOne(id);
@@ -65,12 +66,10 @@ public class AuthorServiceImpl implements AuthorService {
         result.setFirsName(a.getFirstName());
         result.setLastName(a.getLastName());
 
-        Address ad=result.getAddress();
-        result.setAddress(a.getAddress());
-
-        result=author.save(result);
-
-        address.delete(ad);
+        result.getAddress().setCity(a.getAddress().getCity());
+        result.getAddress().setCountry(a.getAddress().getCountry());
+        result.getAddress().setZipCode(a.getAddress().getZipCode());
+        result.getAddress().setStreet(a.getAddress().getStreet());
 
         return result;
 
