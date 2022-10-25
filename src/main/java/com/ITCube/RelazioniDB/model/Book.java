@@ -1,7 +1,6 @@
 package com.ITCube.RelazioniDB.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -24,7 +23,7 @@ public class Book {
 
     @ManyToOne(targetEntity=Author.class)
     @JoinColumn(name="author_id",referencedColumnName="id")
-    @JsonIgnore
+    @JsonIgnoreProperties("books")
     private Author author;
 
     public Book() {

@@ -1,10 +1,9 @@
 package com.ITCube.RelazioniDB.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Objects;
 
 @Entity
 @Table(name = "indirizzo")
@@ -30,8 +29,9 @@ public class Address {
     @NotBlank(message="the street must be present")
     private String street;
 
-    @OneToOne(mappedBy = "address")
-    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="author_id")
+    @JsonBackReference
     private Author author;
 
     public Address() {

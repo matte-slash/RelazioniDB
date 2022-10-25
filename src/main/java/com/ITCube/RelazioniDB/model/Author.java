@@ -1,6 +1,6 @@
 package com.ITCube.RelazioniDB.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -35,12 +35,13 @@ public class Author {
     @NotBlank(message="The email is required")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="address_id", referencedColumnName="id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy="author")
+    @JsonManagedReference
     private Address address;
 
 
     @OneToMany(targetEntity = Book.class, mappedBy = "author", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("author")
     private List<Book> books;
 
 
